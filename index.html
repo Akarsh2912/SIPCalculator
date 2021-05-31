@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIP Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="onstart()">
+
+ <div id="container-1" >
+    <H2>SIP CALCULATOR</H2>
+ </div>
+
+
+
+ <div id="container-2">
+     <div id="flex-container">
+        
+        <div id="part-1">
+            <div class="wrapper">
+                <form id="myform">
+
+
+                    <div id="choose-monthly-sip">
+                        <div id="investment-type">
+                            <span id="category" >Monthly Investment:&nbsp&nbsp</span>
+                            ₹<input type="text" id="amount"  name="amount"  value="500" oninput="PriceValueInput()" onchange="changechart()" onkeypress="return onlyNumberKey(event)" />
+                        </div>
+
+                        <div class="slidecontainer">
+                            <input type="range" min="500" max="200000" value="50" class="slider" id="myRange" oninput="PriceValueSlider()" onchange="changechart()">
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div id="RateOfInterest">
+                        <div id="rate">
+                            <span id="rate-title">Expected Return:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                            <input type="text" id="roi"  name="roi"  value="10" oninput="RateValueInput()" onchange="changechart()" onkeypress="return onlyNumberKey(event)" />%
+                        </div>
+
+                        <div class="slidecontainer">
+                            <input type="range" min="1" max="30" value="10" class="slider" id="myRangeRate" oninput="RateValueSlider()" onchange="changechart()">
+                        </div>
+                    </div>
+
+                    
+                    <div id="TimePeiod">
+                        <div id="tp">
+                            <span id="time-title">Time Period:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                            <input type="text" id="time"  name="time"  value="3" oninput="TimeValueInput()" onchange="changechart()" onkeypress="return onlyNumberKey(event)" />Yr
+                        </div>
+
+                        <div class="slidecontainer">
+                            <input type="range" min="1" max="30" value="3" class="slider" id="myRangeTime" oninput="TimeValueSlider()" onchange="changechart()">
+                        </div>
+                    </div>
+                    
+                       
+                    
+
+                </form>
+               
+                <div id="calculation-part">
+                    
+                   <div> <span>Invested amount : ₹ </span><span id="invested_value" value=""></span></div><br>
+                   <div> <span>Estm. Returns: ₹ </span><span id="estm_returns" value=""></span> </div><br>
+                   <div> <span>Total Returns: ₹ </span><span id="total_returns" value=""></span></div>
+
+                </div>
+
+                
+            </div>
+
+            
+            
+        </div>
+
+
+        <div id="part-2">
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+            
+
+            <canvas id="myChart" style="width:150%;max-width:900px"></canvas>
+
+            <script>
+                function changechart()
+                {
+                    
+                        setTimeout(() => {
+
+                            let price =document.querySelector("#invested_value").value;
+                            let estmd =document.querySelector("#estm_returns").value;
+                            
+                          
+
+                        var xValues = ["Invested", "Estm Return"];
+                        var yValues = [price,estmd];
+                        var barColors = [
+                        "#1761E3",
+                        "#02FFB5"
+                        ];
+                            
+                        new Chart("myChart", {
+                        type: "doughnut",
+                        data: {
+                            labels: xValues,
+                            datasets: [{
+                            backgroundColor: barColors,
+                            data: yValues
+                            }]
+                        },
+                        options: {
+                            title: {
+                            display: true,
+
+                            }
+                        }
+                        });
+                    }, 100); 
+
+                }
+                function onstart()
+                {
+                    calculation();
+                    changechart();
+                }
+            </script>
+            
+        </div>
+
+    </div>
+    <script>
+        function onlyNumberKey(evt) {
+              
+            // Only ASCII charactar in that range allowed
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+            return true;
+        }
+    </script>
+ </div>
+
+ <script src="home.js"></script>
+</body>
+</html>
